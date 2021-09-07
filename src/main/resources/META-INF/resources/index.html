@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GLOCK - the global clock</title>
+
+    <style>
+     /* html, pre {
+        font-family: sans-serif;
+        color: black;
+      }
+
+      body {
+        width: 800px;
+        margin: 0 auto;
+        background-color: #ccc;
+      }
+
+      article {
+        white-space: pre-line;
+        width: 500px;
+        line-height: 1.5;
+        letter-spacing: 0.05rem;
+        padding: 1rem;
+        background-color: white;
+      }
+
+      label {
+        width: 400px;
+        margin-right: 33px;
+      }
+
+      select {
+        width: 400px;
+        padding: 5px;
+      }*/
+
+     html, pre {
+       font-family: sans-serif;
+     }
+
+     body {
+       width: 500px;
+       margin: 0 auto;
+       background-color: #ccc;
+     }
+
+     article {
+       white-space: pre-line;
+       line-height: 1.5;
+       letter-spacing: 0.05rem;
+       padding: 1rem;
+       background-color: white;
+     }
+
+     label {
+       width: 200px;
+       margin-right: 29px;
+     }
+
+     select {
+       width: 350px;
+       padding: 5px;
+     }
+
+    </style>
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <h2>Wybierz miasto by sprawdzić lokalny czas</h2>
+
+    <form>
+      <label for="city-choose">Wybierz miasto</label>
+      <select id="city-choose" name="city-choose">
+        <option value="nowyjork">NOWY JORK</option>
+        <option value="londyn">LONDYN</option>
+        <option value="paryz">PARYŻ</option>
+        <option value="moskwa">MOSKWA</option>
+        <option value="pekin">PEKIN</option>
+        <option value="">WSZYTSKIE MIASTA</option>
+      </select>
+    </form>
+
+    <h2>Poniżej otrzymasz informację o aktualnej godzinie w wybranym mieście</h2>
+
+    
+        <article id="dane">
+
+        </article>
+    
+
+    <script type="text/javascript">
+        
+        const cityChoose = document.querySelector('select');
+        const currtimeDisplay = document.querySelector('article');
+
+        cityChoose.onchange = function() {
+          const city = cityChoose.value;
+          updateDisplay(city);
+        };
+        
+        function updateDisplay(city) {
+            let myurl = 'http://localhost:8080/app/time/' + city;
+
+            fetch(myurl, {method: 'GET'}).then(function(response){
+                response.text().then(function(text){
+                    currtimeDisplay.textContent = text;
+                });
+            });
+        };
+        window.onload = function(){
+        cityChoose.value = 'londyn';
+        };
+        
+    </script>
+  </body>
+</html>
